@@ -1,7 +1,7 @@
 import { Tabs } from 'expo-router';
 
 // Layout des onglets principaux de l'app
-// Chaque Tabs.Screen correspond à un fichier dans ce dossier
+// Chaque Tabs.Screen correspond à un fichier dans ce dossier (tabs/index.tsx, tabs/explore.tsx, etc.)
 export default function TabLayout() {
   return (
     <Tabs
@@ -21,6 +21,13 @@ export default function TabLayout() {
         options={{
           title: 'Historique',
           tabBarLabel: 'Historique',
+        }}
+      />
+      <Tabs.Screen
+        name="stats"
+        options={{
+          title: 'Stats',
+          tabBarLabel: 'Stats',
         }}
       />
     </Tabs>
