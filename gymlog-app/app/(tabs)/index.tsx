@@ -3,7 +3,6 @@ import { useRouter } from 'expo-router';
 
 // Écran d'accueil — point de départ de chaque séance
 export default function HomeScreen() {
-  // useRouter permet de naviguer entre les écrans
   const router = useRouter();
 
   return (
@@ -11,12 +10,12 @@ export default function HomeScreen() {
       <Text style={styles.title}>GymLog</Text>
       <Text style={styles.subtitle}>Prêt à t'entraîner ?</Text>
 
-      {/* Bouton qui mène vers la liste des exercices */}
+      {/* Démarre une nouvelle séance vide */}
       <TouchableOpacity
         style={styles.button}
-        onPress={() => router.push('/exercises')}
+        onPress={() => router.push('/workout')}
       >
-        <Text style={styles.buttonText}>Voir les exercices</Text>
+        <Text style={styles.buttonText}>Nouvelle séance</Text>
       </TouchableOpacity>
     </View>
   );
