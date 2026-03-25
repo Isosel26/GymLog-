@@ -30,6 +30,13 @@ export default function TabLayout() {
           tabBarLabel: 'Stats',
         }}
       />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profil',
+          tabBarLabel: 'Profil',
+        }}
+      />
     </Tabs>
   );
 }
