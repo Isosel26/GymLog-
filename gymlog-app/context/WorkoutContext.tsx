@@ -1,10 +1,11 @@
 import { createContext, useContext, useState, ReactNode } from 'react';
 import { Exercise } from '@/data/exercises';
 
-// Une "série" dans un exercice : poids + répétitions
+// Une "série" dans un exercice : poids + répétitions + RIR
 export type Set = {
   weight: string;
   reps: string;
+  rir: string; // Reps In Reserve : combien de reps tu aurais pu faire encore (0 = échec, 3 = 3 reps en réserve)
 };
 
 // Un exercice dans la séance, avec ses séries
@@ -19,7 +20,7 @@ type WorkoutContextType = {
   addExercise: (exercise: Exercise) => void;   // ajouter un exercice
   removeExercise: (id: number) => void;        // retirer un exercice
   addSet: (exerciseId: number) => void;        // ajouter une série à un exercice
-  updateSet: (exerciseId: number, setIndex: number, field: 'weight' | 'reps', value: string) => void; // modifier poids/reps
+  updateSet: (exerciseId: number, setIndex: number, field: 'weight' | 'reps' | 'rir', value: string) => void; // modifier poids/reps/rir
   clearWorkout: () => void;                    // vider la séance (après sauvegarde)
 };
 
@@ -34,7 +35,7 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
   const addExercise = (exercise: Exercise) => {
     setWorkoutExercises((prev) => [
       ...prev,
-      { exercise, sets: [{ weight: '', reps: '' }] },
+      { exercise, sets: [{ weight: '', reps: '', rir: '' }] },
     ]);
   };
 
@@ -48,14 +49,14 @@ export function WorkoutProvider({ children }: { children: ReactNode }) {
     setWorkoutExercises((prev) =>
       prev.map((e) =>
         e.exercise.id === exerciseId
-          ? { ...e, sets: [...e.sets, { weight: '', reps: '' }] }
+          ? { ...e, sets: [...e.sets, { weight: '', reps: '', rir: '' }] }
           : e
       )
     );
   };
 
   // Mettre à jour le poids ou les reps d'une série
-  const updateSet = (exerciseId: number, setIndex: number, field: 'weight' | 'reps', value: string) => {
+  const updateSet = (exerciseId: number, setIndex: number, field: 'weight' | 'reps' | 'rir', value: string) => {
     setWorkoutExercises((prev) =>
       prev.map((e) => {
         if (e.exercise.id !== exerciseId) return e;

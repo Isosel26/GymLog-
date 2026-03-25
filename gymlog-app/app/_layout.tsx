@@ -5,6 +5,10 @@ import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/use-color-scheme';
 import { WorkoutProvider } from '@/context/WorkoutContext';
+import { initDatabase } from '@/database/schema';
+
+// Initialise les tables SQLite au démarrage (safe, ne recrée pas si déjà existantes)
+initDatabase();
 
 export const unstable_settings = {
   anchor: '(tabs)',
